@@ -6,6 +6,7 @@ const webdriver = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
 const fs = require('fs-extra');
+const rp = require('request-promise');
 
 class EasyDriver {
   /**
@@ -440,6 +441,59 @@ class EasyDriver {
   refresh() {
     this.log(`  [-] refresh()`);
     return this.wd.navigate().refresh();
+  }
+
+  /**
+   * HTTP Request
+   * @param {string} url URL
+   * @param {{method: string, qs: object, body: object, formData: object, auth: object, encoding: string, json: boolean}}
+            [settings = { method: 'GET', headers: null, qs: null, body: null, formData: null, auth: { user: null, pass: null}, encoding: 'utf8', json: true}]
+            method: HTTP Request method,
+            headers: HTTP Request headers,
+            qs: Query String,
+            body: Request body as JSON,
+            formData: Request body as HTML form,
+            auth: Basic Auth,
+            encoding: Response (Data URL) encoding
+            json: Response in JSON
+   * @return {WebElementPromise} A WebElement that holds the result of HTTP request
+   */
+  request(url, settings = { method: 'GET', headers: null, qs: null, body: null, formData: null, auth: { user: null, pass: null}, encoding: 'utf8', json: true}) {
+    const self = this;
+    const defer = self.promise.defer();
+
+    const encoding = settings.encoding || 'utf8';
+    const headers = settings.headers || {};
+    const options = {
+      uri: url,
+      method: settings.method || 'GET',
+      headers: Object.assign({ 'Accept-Language': self.locale }, headers),
+      strictSSL: false,
+      json: settings.json || true
+    };
+    if (settings.auth.user && settings.auth.pass) options.auth = settings.auth;
+    if (settings.qs) options.qs = settings.qs;
+    if (settings.body) options.body = settings.body;
+    if (settings.formData) options.formData = settings.formData;
+
+    rp(options)
+      .then(function (body) {
+        self.open(`data:text/plain;charset=${encoding},${body}`);
+      })
+      .catch(function (err) {
+        self.open(`data:text/plain;charset=${encoding},${err.error.message}`);
+      })
+      .finally(function () {
+        self.findElement('//body/pre')
+          .then(function (element) {
+            defer.fulfill(element);
+          })
+          .catch(function (reason) {
+            defer.reject(reason);
+          });
+      });
+
+    return new webdriver.WebElementPromise(self.wd, defer.promise);
   }
 
   /**

@@ -32,6 +32,7 @@
     * [.openWindow(name)](#EasyDriver+openWindow) ⇒ <code>Thenable.&lt;undefined&gt;</code>
     * [.quit()](#EasyDriver+quit) ⇒ <code>Thenable.&lt;undefined&gt;</code>
     * [.refresh()](#EasyDriver+refresh) ⇒ <code>Thenable.&lt;undefined&gt;</code>
+    * [.request(url, [settings])](#EasyDriver+request) ⇒ <code>WebElementPromise</code>
     * [.runScript(script, fn)](#EasyDriver+runScript)
     * [.setPageLoadTimeout(ms)](#EasyDriver+setPageLoadTimeout) ⇒ <code>Thenable.&lt;undefined&gt;</code>
     * [.setScriptTimeout(ms)](#EasyDriver+setScriptTimeout) ⇒ <code>Thenable.&lt;undefined&gt;</code>
@@ -127,14 +128,14 @@
 ### easyDriver.actions() ⇒ <code>ActionSequence</code>
 Create a new action sequence
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>ActionSequence</code> - A new action sequence.  
 <a name="EasyDriver+addCookie"></a>
 
 ### easyDriver.addCookie(name, value, minutes) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Add a cookie
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -147,25 +148,25 @@ Add a cookie
 ### easyDriver.activeElement() ⇒ <code>WebElementPromise</code>
 Retrieve the document.activeElement element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+alertAccept"></a>
 
 ### easyDriver.alertAccept() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Accept an alert/confirm/prompt dialog
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+alertDismiss"></a>
 
 ### easyDriver.alertDismiss() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Dismiss a confirm/prompt dialog
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+alertSendKeys"></a>
 
 ### easyDriver.alertSendKeys(text) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Send Keys to window.prompt() and accept the dialog
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -176,31 +177,31 @@ Send Keys to window.prompt() and accept the dialog
 ### easyDriver.back() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Move backwards in the browser history
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+blank"></a>
 
 ### easyDriver.blank() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Open a blank page
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+close"></a>
 
 ### easyDriver.close() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Close the current window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+deleteAllCookies"></a>
 
 ### easyDriver.deleteAllCookies() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Delete all cookies visible to the current page
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+deleteCookie"></a>
 
 ### easyDriver.deleteCookie(name) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Delete a cookie
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -211,7 +212,7 @@ Delete a cookie
 ### easyDriver.findElement(locator, [isVisible]) ⇒ <code>WebElementPromise</code>
 Find Element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>WebElementPromise</code> - A WebElement that can be used to issue commands against the located element.  
 
 | Param | Type | Default | Description |
@@ -224,7 +225,7 @@ Find Element
 ### easyDriver.findElements(locator) ⇒ <code>Thenable.&lt;Array.&lt;WebElement&gt;&gt;</code>
 Find Elements
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>Thenable.&lt;Array.&lt;WebElement&gt;&gt;</code> - A promise that will resolve to an array of WebElements.  
 
 | Param | Type | Description |
@@ -236,20 +237,20 @@ Find Elements
 ### easyDriver.forward() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Move forwards in the browser history
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+getAllWindowHandles"></a>
 
 ### easyDriver.getAllWindowHandles() ⇒ <code>Thenable.&lt;Array.&lt;string&gt;&gt;</code>
 Get All Window Handles
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>Thenable.&lt;Array.&lt;string&gt;&gt;</code> - A promise that will be resolved with an array of window handles.  
 <a name="EasyDriver+getCookie"></a>
 
 ### easyDriver.getCookie(name) ⇒ <code>Thenable.&lt;(Options.Cookie\|null)&gt;</code>
 Get a cookie
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -260,27 +261,27 @@ Get a cookie
 ### easyDriver.getCookies() ⇒ <code>Thenable.&lt;Array.&lt;Options.Cookie&gt;&gt;</code>
 Get all cookies
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+getTitle"></a>
 
 ### easyDriver.getTitle() ⇒ <code>Thenable.&lt;string&gt;</code>
 Get title
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>Thenable.&lt;string&gt;</code> - A promise that will be resolved with the current page's title.  
 <a name="EasyDriver+getWindowHandle"></a>
 
 ### easyDriver.getWindowHandle() ⇒ <code>Thenable.&lt;string&gt;</code>
 Get Window Handle
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>Thenable.&lt;string&gt;</code> - A promise that will be resolved with the current window's handle.  
 <a name="EasyDriver+locateElementBy"></a>
 
 ### easyDriver.locateElementBy(locator) ⇒ <code>By</code>
 Locate element 'By' strategies
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 **Returns**: <code>By</code> - A new By locator.  
 
 | Param | Type | Description |
@@ -292,7 +293,7 @@ Locate element 'By' strategies
 ### easyDriver.log(msg)
 Log messages
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -303,19 +304,19 @@ Log messages
 ### easyDriver.maximizeWindow() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Maximize the window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+maximizeToScreenSize"></a>
 
 ### easyDriver.maximizeToScreenSize() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Maximize the window to the screen size
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+open"></a>
 
 ### easyDriver.open(url) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Open URL
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -326,7 +327,7 @@ Open URL
 ### easyDriver.openWindow(name) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Open a new blank window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -337,23 +338,36 @@ Open a new blank window
 ### easyDriver.quit() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Terminates the browser session
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+refresh"></a>
 
 ### easyDriver.refresh() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Refresh the page
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
+<a name="EasyDriver+request"></a>
+
+### easyDriver.request(url, [settings]) ⇒ <code>WebElementPromise</code>
+HTTP Request
+
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
+**Returns**: <code>WebElementPromise</code> - A WebElement that holds the result of HTTP request  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| url | <code>string</code> |  | URL |
+| [settings] | <code>Object</code> | <code>{ method: &#x27;GET&#x27;, headers: null, qs: null, body: null, formData: null, auth: { user: null, pass: null}, encoding: &#x27;utf8&#x27;, json: true}</code> | method: HTTP Request method,             headers: HTTP Request headers,             qs: Query String,             body: Request body as JSON,             formData: Request body as HTML form,             auth: Basic Auth,             encoding: Response (Data URL) encoding             json: Response in JSON |
+
 <a name="EasyDriver+runScript"></a>
 
 ### easyDriver.runScript(script, fn)
 Run script
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| script | <code>string</code> &#124; <code>function</code> | The script to execute |
+| script | <code>string</code> \| <code>function</code> | The script to execute |
 | fn | <code>function</code> | A callback function aftrer the script is executed |
 
 <a name="EasyDriver+setPageLoadTimeout"></a>
@@ -361,7 +375,7 @@ Run script
 ### easyDriver.setPageLoadTimeout(ms) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Sets the amount of time to wait for a page load
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -372,7 +386,7 @@ Sets the amount of time to wait for a page load
 ### easyDriver.setScriptTimeout(ms) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Set the timeout for asynchronous scripts
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -383,7 +397,7 @@ Set the timeout for asynchronous scripts
 ### easyDriver.setTimeout(ms)
 Set the timeout for 'Wait'
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -394,7 +408,7 @@ Set the timeout for 'Wait'
 ### easyDriver.setWindowPosition(x, y) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Set window's position
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -406,7 +420,7 @@ Set window's position
 ### easyDriver.setWindowSize(width, height) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Set window's size
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -418,7 +432,7 @@ Set window's size
 ### easyDriver.sleep(ms) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Sleep
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -429,42 +443,42 @@ Sleep
 ### easyDriver.switchToAlert() ⇒ <code>AlertPromise</code>
 Switch to window.alert(), window.confirm(), or window.prompt()
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+switchToDefaultContent"></a>
 
 ### easyDriver.switchToDefaultContent() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Switch to the default content
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+switchToFirstWindow"></a>
 
 ### easyDriver.switchToFirstWindow() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Switch to first window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+switchToFrame"></a>
 
 ### easyDriver.switchToFrame(locator) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Switch to frame
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>number</code> &#124; <code>string</code> &#124; <code>WebElement</code> | The frame locator |
+| locator | <code>number</code> \| <code>string</code> \| <code>WebElement</code> | The frame locator |
 
 <a name="EasyDriver+switchToLastWindow"></a>
 
 ### easyDriver.switchToLastWindow() ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Switch to last-opened window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+switchToWindow"></a>
 
 ### easyDriver.switchToWindow(nameOrHandle) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Switch to window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -475,7 +489,7 @@ Switch to window
 ### easyDriver.takeScreenshot(filename)
 Take a screenshot
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -486,7 +500,7 @@ Take a screenshot
 ### easyDriver.wait(condition, [timeout]) ⇒ <code>Thenable</code>
 Wait
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -498,13 +512,13 @@ Wait
 ### easyDriver.waitForAlertIsPresent() ⇒ <code>Thenable.&lt;Alert&gt;</code>
 Wait till an alert is presented
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+waitForTitleContains"></a>
 
 ### easyDriver.waitForTitleContains(substr) ⇒ <code>Thenable</code>
 Wait till Title contains substr
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -515,7 +529,7 @@ Wait till Title contains substr
 ### easyDriver.waitForTitleIs(title) ⇒ <code>Thenable</code>
 Wait till Title is title
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -526,7 +540,7 @@ Wait till Title is title
 ### easyDriver.waitForTitleMatches(regex) ⇒ <code>Thenable</code>
 Wait till Title matches regex
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -537,7 +551,7 @@ Wait till Title matches regex
 ### easyDriver.waitForUrlContains(substrUrl) ⇒ <code>Thenable</code>
 Wait till URL contains substrUrl
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -548,7 +562,7 @@ Wait till URL contains substrUrl
 ### easyDriver.waitForUrlIs(url) ⇒ <code>Thenable</code>
 Wait till URL is url
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -559,7 +573,7 @@ Wait till URL is url
 ### easyDriver.waitForUrlMatches(regex) ⇒ <code>Thenable</code>
 Wait till URL matches regex
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -570,7 +584,7 @@ Wait till URL matches regex
 ### easyDriver.zoom(scale) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Zoom in/out of a window
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -581,55 +595,55 @@ Zoom in/out of a window
 ### easyDriver.blur(locator) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Remove focus from an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+checkAll"></a>
 
 ### easyDriver.checkAll(locator)
 Check all checkboxes under an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+clear"></a>
 
 ### easyDriver.clear(locator) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Clear the value of an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+click"></a>
 
 ### easyDriver.click(locator) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Click an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+clickAt"></a>
 
 ### easyDriver.clickAt(locator, [offset]) ⇒ <code>Thenable</code>
 Click an element with an offset
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | An offset within the element |
 
 <a name="EasyDriver+doubleClick"></a>
@@ -637,11 +651,11 @@ Click an element with an offset
 ### easyDriver.doubleClick(locator, [offset]) ⇒ <code>Thenable</code>
 Double-click an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | An offset within the element |
 
 <a name="EasyDriver+dragAndDrop"></a>
@@ -649,34 +663,34 @@ Double-click an element
 ### easyDriver.dragAndDrop(from_locator, to_locator) ⇒ <code>Thenable</code>
 Drag and drop
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| from_locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
-| to_locator | <code>string</code> &#124; <code>WebElement</code> &#124; <code>Object</code> | The location to drag to,             either as another locator or an offset in pixels. |
+| from_locator | <code>string</code> \| <code>WebElement</code> | Element locator |
+| to_locator | <code>string</code> \| <code>WebElement</code> \| <code>Object</code> | The location to drag to,             either as another locator or an offset in pixels. |
 
 <a name="EasyDriver+focus"></a>
 
 ### easyDriver.focus(locator) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Give focus to an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+getAttribute"></a>
 
 ### easyDriver.getAttribute(locator, attributeName) ⇒ <code>Thenable.&lt;(string\|null)&gt;</code>
 Get attribute value of an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | attributeName | <code>string</code> | The name of the attribute to query |
 
 <a name="EasyDriver+getRect"></a>
@@ -684,44 +698,44 @@ Get attribute value of an element
 ### easyDriver.getRect(locator) ⇒ <code>Thenable.&lt;{x: number, y: number, width: number, height: number}&gt;</code>
 Get Position and Size of an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+getTagName"></a>
 
 ### easyDriver.getTagName(locator) ⇒ <code>Thenable.&lt;string&gt;</code>
 Get Get tag name of an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+getText"></a>
 
 ### easyDriver.getText(locator) ⇒ <code>Thenable.&lt;string&gt;</code>
 Get Get the visible innerText of an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+hasAttribute"></a>
 
 ### easyDriver.hasAttribute(locator, attributeName) ⇒ <code>Thenable.&lt;boolean&gt;</code>
 Check if an element has the specified attribute
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | attributeName | <code>string</code> | The name of the attribute to check |
 
 <a name="EasyDriver+hide"></a>
@@ -729,66 +743,66 @@ Check if an element has the specified attribute
 ### easyDriver.hide(locator) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Hide an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+highlight"></a>
 
 ### easyDriver.highlight(locator) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Highlight an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+isDisplayed"></a>
 
 ### easyDriver.isDisplayed(locator) ⇒ <code>Thenable.&lt;boolean&gt;</code>
 If an element is displayed
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+isEnabled"></a>
 
 ### easyDriver.isEnabled(locator) ⇒ <code>Thenable.&lt;boolean&gt;</code>
 If an element is enabled
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+isSelected"></a>
 
 ### easyDriver.isSelected(locator) ⇒ <code>Thenable.&lt;boolean&gt;</code>
 If an element is selected
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+mouseMove"></a>
 
 ### easyDriver.mouseMove(locator, [offset]) ⇒ <code>Thenable</code>
 Move to an element by offset
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | An offset within the element. |
 
 <a name="EasyDriver+move"></a>
@@ -796,23 +810,23 @@ Move to an element by offset
 ### easyDriver.move(from_locator, to_locator) ⇒ <code>Thenable</code>
 Move an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| from_locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
-| to_locator | <code>string</code> &#124; <code>WebElement</code> &#124; <code>Object</code> | The location to move to,             either as another locator,  WebElement, or an offset in {x,y}. |
+| from_locator | <code>string</code> \| <code>WebElement</code> | Element locator |
+| to_locator | <code>string</code> \| <code>WebElement</code> \| <code>Object</code> | The location to move to,             either as another locator,  WebElement, or an offset in {x,y}. |
 
 <a name="EasyDriver+removeAttribute"></a>
 
 ### easyDriver.removeAttribute(locator, attributeName) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Remove an attribute from an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | attributeName | <code>string</code> | The name of the attribute to remove |
 
 <a name="EasyDriver+rightClick"></a>
@@ -820,22 +834,22 @@ Remove an attribute from an element
 ### easyDriver.rightClick(locator) ⇒ <code>Thenable</code>
 Right-click on an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+rightClickAt"></a>
 
 ### easyDriver.rightClickAt(locator, [offset]) ⇒ <code>Thenable</code>
 Right-click on an element by offset
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | An offset within the element. |
 
 <a name="EasyDriver+scrollIntoView"></a>
@@ -843,22 +857,22 @@ Right-click on an element by offset
 ### easyDriver.scrollIntoView(locator) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Scroll an element into view
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+select"></a>
 
 ### easyDriver.select(select_locator, option_locator) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Select an option in a drop-down menu
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| select_locator | <code>string</code> &#124; <code>WebElement</code> | SELECT element locator |
+| select_locator | <code>string</code> \| <code>WebElement</code> | SELECT element locator |
 | option_locator | <code>string</code> | OPTION element locator |
 
 <a name="EasyDriver+sendKeys"></a>
@@ -866,23 +880,23 @@ Select an option in a drop-down menu
 ### easyDriver.sendKeys(locator, ...keys) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Send keys to an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
-| ...keys | <code>string</code> &#124; <code>Key</code> &#124; <code>Array.&lt;(string\|Key)&gt;</code> | Keys to send |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
+| ...keys | <code>string</code> \| <code>Key</code> \| <code>Array.&lt;(string\|Key)&gt;</code> | Keys to send |
 
 <a name="EasyDriver+setAttribute"></a>
 
 ### easyDriver.setAttribute(select_locator, attribute, value)
 Set attribute value for an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| select_locator | <code>string</code> &#124; <code>WebElement</code> | SELECT element locator |
+| select_locator | <code>string</code> \| <code>WebElement</code> | SELECT element locator |
 | attribute | <code>string</code> | attribute name |
 | value | <code>string</code> | attribute value |
 
@@ -891,33 +905,33 @@ Set attribute value for an element
 ### easyDriver.show(locator) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Show an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+submit"></a>
 
 ### easyDriver.submit(locator) ⇒ <code>Thenable.&lt;undefined&gt;</code>
 Submit the form containing the element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+trigger"></a>
 
 ### easyDriver.trigger(locator, eventName) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Trigger an event on an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | eventName | <code>string</code> | Event Name |
 
 <a name="EasyDriver+unCheckAll"></a>
@@ -925,22 +939,22 @@ Trigger an event on an element
 ### easyDriver.unCheckAll(locator)
 Uncheck all checkboxes under an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+visible"></a>
 
 ### easyDriver.visible(locator, [isVisible]) ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Set visibility of an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [isVisible] | <code>bool</code> | <code>true</code> | visibility of the element |
 
 <a name="EasyDriver+waitForDisabled"></a>
@@ -948,99 +962,99 @@ Set visibility of an element
 ### easyDriver.waitForDisabled(locator) ⇒ <code>Thenable</code>
 Wait till an element is disabled
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForEnabled"></a>
 
 ### easyDriver.waitForEnabled(locator) ⇒ <code>Thenable</code>
 Wait till an element is enabled
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForNotPresent"></a>
 
 ### easyDriver.waitForNotPresent(locator) ⇒ <code>Thenable</code>
 Wait till an element is not presented
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForNotSelected"></a>
 
 ### easyDriver.waitForNotSelected(locator) ⇒ <code>Thenable</code>
 Wait till an element is not selected
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForNotVisible"></a>
 
 ### easyDriver.waitForNotVisible(locator) ⇒ <code>Thenable</code>
 Wait till an element is not visible
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForPresent"></a>
 
 ### easyDriver.waitForPresent(locator) ⇒ <code>Thenable</code>
 Wait till an element is present
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForSelected"></a>
 
 ### easyDriver.waitForSelected(locator) ⇒ <code>Thenable</code>
 Wait till an element is selected
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForSwitchToFrame"></a>
 
 ### easyDriver.waitForSwitchToFrame(locator) ⇒ <code>Thenable</code>
 Wait till switching to a frame
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>number</code> &#124; <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>number</code> \| <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+waitForTextContains"></a>
 
 ### easyDriver.waitForTextContains(locator, substr) ⇒ <code>Thenable</code>
 Wait till an element's text contains substring
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | substr | <code>string</code> | The substring to search for |
 
 <a name="EasyDriver+waitForTextIs"></a>
@@ -1048,11 +1062,11 @@ Wait till an element's text contains substring
 ### easyDriver.waitForTextIs(locator, text) ⇒ <code>Thenable</code>
 Wait till an element's innerText is text
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | text | <code>string</code> | The expected text |
 
 <a name="EasyDriver+waitForTextMatches"></a>
@@ -1060,11 +1074,11 @@ Wait till an element's innerText is text
 ### easyDriver.waitForTextMatches(locator, regex) ⇒ <code>Thenable</code>
 Wait till an element's innerText matches regex
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 | regex | <code>RegExp</code> | The regular expression to test against |
 
 <a name="EasyDriver+waitForVisible"></a>
@@ -1072,24 +1086,24 @@ Wait till an element's innerText matches regex
 ### easyDriver.waitForVisible(locator) ⇒ <code>Thenable</code>
 Wait till an element is visible
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+clearAllDrawings"></a>
 
 ### easyDriver.clearAllDrawings() ⇒ <code>Thenable.&lt;(T\|null)&gt;</code>
 Clear all elements created by EasyDriver
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+createDirectories"></a>
 
 ### easyDriver.createDirectories(dirtree)
 Create directories
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -1100,29 +1114,29 @@ Create directories
 ### easyDriver.drawAlert() ⇒ <code>WebElementPromise</code>
 Draw Alert
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 <a name="EasyDriver+drawArrow"></a>
 
 ### easyDriver.drawArrow(from_locator, to_locator) ⇒ <code>WebElementPromise</code>
 Draw an arrow between 2 element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| from_locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
-| to_locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| from_locator | <code>string</code> \| <code>WebElement</code> | Element locator |
+| to_locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+drawColorFill"></a>
 
 ### easyDriver.drawColorFill(locator, [color]) ⇒ <code>WebElementPromise</code>
 Fill an element with color
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [color] | <code>string</code> | <code>&quot;&#x27;rgba(255,0,0,0.8)&#x27;&quot;</code> | Color to fill |
 
 <a name="EasyDriver+drawConfirmation"></a>
@@ -1130,7 +1144,7 @@ Fill an element with color
 ### easyDriver.drawConfirmation([dismiss]) ⇒ <code>WebElementPromise</code>
 Draw Confirmation
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -1141,11 +1155,11 @@ Draw Confirmation
 ### easyDriver.drawFlyover(locator, [settings]) ⇒ <code>WebElementPromise</code>
 Draw flyover for an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [settings] | <code>Object</code> | <code>{attribute: &#x27;title&#x27;, offsetX: 5, offsetY: 15, fromLastPos: false, drawSymbol: false}</code> | attribute: draw flyover on element's attribute,             offsetX: offset X from the element,             offsetY: offset Y from the element,             fromLastPos: draw from last Flyover position,             drawSymbol: draw symbol on the flyover. |
 
 <a name="EasyDriver+drawRedMark"></a>
@@ -1153,11 +1167,11 @@ Draw flyover for an element
 ### easyDriver.drawRedMark(locator, [padding]) ⇒ <code>WebElementPromise</code>
 Draw red-mark around an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [padding] | <code>Object</code> | <code>{top: 0, left: 0, bottom: 0, right: 0}</code> | Remark padding |
 
 <a name="EasyDriver+drawSelect"></a>
@@ -1165,11 +1179,11 @@ Draw red-mark around an element
 ### easyDriver.drawSelect(locator, [offset]) ⇒ <code>WebElementPromise</code>
 Draw drop-down menu for SELECT element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [offset] | <code>Object</code> | <code>{x: 5, y: 15}</code> | Menu offset from the element |
 
 <a name="EasyDriver+drawText"></a>
@@ -1177,11 +1191,11 @@ Draw drop-down menu for SELECT element
 ### easyDriver.drawText(locator, text, [settings]) ⇒ <code>WebElementPromise</code>
 Draw Text after the element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | text | <code>string</code> |  | Text to draw |
 | [settings] | <code>Object</code> | <code>{color: &#x27;#f00&#x27;, fontSize: 13, marginTop: 2, right: 20}</code> | Settings |
 
@@ -1190,11 +1204,11 @@ Draw Text after the element
 ### easyDriver.drawValidation(locator, [offset]) ⇒ <code>WebElementPromise</code>
 Draw validationMessage of an form element as a flyover
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | Flyover offset from the element |
 
 <a name="EasyDriver+drawX"></a>
@@ -1202,22 +1216,22 @@ Draw validationMessage of an form element as a flyover
 ### easyDriver.drawX(locator) ⇒ <code>WebElementPromise</code>
 Cross out an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> | Element locator |
 
 <a name="EasyDriver+takeElementShot"></a>
 
 ### easyDriver.takeElementShot(locator, filename, [offset])
 Take a screenshot on an element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | filename | <code>string</code> |  | File name (.png) of the screenshot |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | An offset from an element References for detecting Retina: http://stackoverflow.com/questions/19689715 |
 
@@ -1226,11 +1240,11 @@ Take a screenshot on an element
 ### easyDriver.takeScrollShot(locator, filename, [offset])
 Take a screenshot on a scroll element
 
-**Kind**: instance method of <code>[EasyDriver](#EasyDriver)</code>  
+**Kind**: instance method of [<code>EasyDriver</code>](#EasyDriver)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| locator | <code>string</code> &#124; <code>WebElement</code> |  | Element locator |
+| locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
 | filename | <code>string</code> |  | File name (.png) of the screenshot |
 | [offset] | <code>Object</code> | <code>{x: 0, y: 0}</code> | An offset from an element |
 

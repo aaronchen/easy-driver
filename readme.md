@@ -251,6 +251,35 @@ easyd.findElements('css=[id*="item"]').then(function (elements) {
 });
 ```
 
+## HTTP Request Support
+
+**EasyDriver** supports HTTP Requst via (request-promise)[https://github.com/request/request-promise].
+
+`easyd.request(url, settings)`
+
+> `Accept-Language` of HTTP Request is default to **EasyDriver**'s `locale`.
+
+```javascript
+const EasyDriver = require('./easy-driver');
+const easyd = new EasyDriver({locale: 'zh'});
+
+easyd.request(
+  'url',
+  {
+    method: 'GET', // HTTP Request Method.  Default: 'GET'
+    headers: { 'User-Agent': 'EasyDriver' } // HTTP Request Headers
+    qs: { field1: 'value1' }, // Pass as "Query String"
+    body: { key1: 'value1' }, // Pass as "JSON"
+    formData: { key1: 'value1' },  // Pass as "HTML Form Data"
+    auth: {user: 'username', pass: 'password'} // Basic Auth
+    encoding: 'utf8' // Data URL encoding.  Default: 'utf8'
+    json: true // HTTP Response in JSON.  Default: true
+  }
+).then (function (element) {
+  // Do stuff to the element that holds the result of HTTP Request
+});
+```
+
 > All Actions: [Class ActionSequence](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ActionSequence.html)
 
 ## WebDriver Instance
