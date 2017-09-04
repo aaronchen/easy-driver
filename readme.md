@@ -255,7 +255,7 @@ easyd.findElements('css=[id*="item"]').then(function (elements) {
 
 ## HTTP Request Support
 
-**EasyDriver** supports HTTP Requst via (request-promise)[https://github.com/request/request-promise].
+**EasyDriver** supports HTTP Requst via [request-promise](https://github.com/request/request-promise).
 
 `easyd.request(url, settings)`
 
