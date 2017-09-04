@@ -251,6 +251,8 @@ easyd.findElements('css=[id*="item"]').then(function (elements) {
 });
 ```
 
+> All Actions: [Class ActionSequence](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ActionSequence.html)
+
 ## HTTP Request Support
 
 **EasyDriver** supports HTTP Requst via (request-promise)[https://github.com/request/request-promise].
@@ -279,8 +281,6 @@ easyd.request(
   // Do stuff to the element that holds the result of HTTP Request
 });
 ```
-
-> All Actions: [Class ActionSequence](http://seleniumhq.github.io/selenium/docs/api/javascript/module/selenium-webdriver/index_exports_ActionSequence.html)
 
 ## WebDriver Instance
 
