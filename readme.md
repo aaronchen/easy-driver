@@ -117,6 +117,7 @@ const easyd = new EasyDriver({locale: 'ja', browser: 'chrome'});
 * `easyd.openWindow(name)`
 * `easyd.quit()`
 * `easyd.refresh()`
+* `easyd.request(url, settings) -> WebElementPromise` => See **HTTP Request Support**
 * `easyd.runScript(script, callback) -> callback(retval)`
 * `easyd.setPageLoadTimeout(ms)`
 * `easyd.setScriptTimeout(ms)`
@@ -257,7 +258,7 @@ easyd.findElements('css=[id*="item"]').then(function (elements) {
 
 **EasyDriver** supports HTTP Requst via [request-promise](https://github.com/request/request-promise).
 
-`easyd.request(url, settings)`
+`easyd.request(url, settings) -> WebElementPromise`
 
 > `Accept-Language` of HTTP Request is default to **EasyDriver**'s `locale`.
 
@@ -270,9 +271,9 @@ easyd.request(
   {
     method: 'GET', // HTTP Request Method.  Default: 'GET'
     headers: { 'User-Agent': 'EasyDriver' } // HTTP Request Headers
-    qs: { field1: 'value1' }, // Pass as "Query String"
-    body: { key1: 'value1' }, // Pass as "JSON"
-    formData: { key1: 'value1' },  // Pass as "HTML Form Data"
+    qs: { field1: 'value1' }, // Parameters as "Query String"
+    body: { key1: 'value1' }, // Parameters as "JSON" body
+    formData: { key1: 'value1' },  // Parameters as "HTML Form Data"
     auth: {user: 'username', pass: 'password'} // Basic Auth
     encoding: 'utf8' // Data URL encoding.  Default: 'utf8'
     json: true // HTTP Response in JSON.  Default: true
