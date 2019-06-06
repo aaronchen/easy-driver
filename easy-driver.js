@@ -1,19 +1,19 @@
-'use strict';
+"use strict";
 
-require('chromedriver');
-// require('geckodriver');
-const webdriver = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-const firefox = require('selenium-webdriver/firefox');
-const fs = require('fs-extra');
-const rp = require('request-promise');
+require("chromedriver");
+require("geckodriver");
+const webdriver = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
+const firefox = require("selenium-webdriver/firefox");
+const fs = require("fs-extra");
+const rp = require("request-promise");
 
 class EasyDriver {
   /**
    * @param {{browser: string, locale: string}} [options={browser: 'chrome', locale: 'en'}] Driver Options.
    `browser` is either 'chrome' (default) or 'firefox'.  `locale` is 'en' by default.
   */
-  constructor(options = {locale: 'en', browser: 'chrome'}) {
+  constructor(options = { locale: "en", browser: "chrome" }) {
     // WebDriver
     this.Button = webdriver.Button;
     this.By = webdriver.By;
@@ -28,16 +28,23 @@ class EasyDriver {
     this.VERBOSE = true;
 
     // options
-    if (process.env.SELENIUM_BROWSER) options.browser = process.env.SELENIUM_BROWSER;
-    this.browser = (options.browser && options.browser.match(/firefox/i)) ? 'firefox' : 'chrome';
-    this.locale = options.locale || 'en';
-    this.locale = (this.browser === 'firefox') ? regionToLowerCase(this.locale) : regionToUpperCase(this.locale);
+    if (process.env.SELENIUM_BROWSER)
+      options.browser = process.env.SELENIUM_BROWSER;
+    this.browser =
+      options.browser && options.browser.match(/firefox/i)
+        ? "firefox"
+        : "chrome";
+    this.locale = options.locale || "en";
+    this.locale =
+      this.browser === "firefox"
+        ? regionToLowerCase(this.locale)
+        : regionToUpperCase(this.locale);
 
     // Chrome Options
     // Languages: https://support.google.com/googleplay/android-developer/table/4419860?hl=en
     // pref_names.cc: https://goo.gl/NXSyLn
     const chromeOptions = new chrome.Options();
-    chromeOptions.setUserPreferences({ 'intl.accept_languages': this.locale });
+    chromeOptions.setUserPreferences({ "intl.accept_languages": this.locale });
     // get rid of "Chrome is being controlled by automated test software"
     // chromeOptions.excludeSwitches("enable-automation");
     chromeOptions.addArguments(["disable-infobars", "disable-notifications"]);
@@ -48,26 +55,33 @@ class EasyDriver {
 
     // Firefox Options
     const profile = new firefox.Profile();
-    profile.setPreference('marionette', false);
-    profile.setPreference('intl.accept_languages', this.locale);
+    // profile.setPreference("marionette", false);
+    profile.setPreference("intl.accept_languages", this.locale);
     profile.setAcceptUntrustedCerts(true);
     profile.setAssumeUntrustedCertIssuer(true);
     // profile.addExtension('extensions/selenium_ide-2.9.1-fx.xpi');
-    const firefoxOptions = new firefox.Options()
-                               .useGeckoDriver(false)
-                               .setProfile(profile);
+    const firefoxOptions = new firefox.Options().setProfile(profile);
 
     // Driver Instance
     this.wd = new webdriver.Builder()
-                  .forBrowser(this.browser)
-                  .setChromeOptions(chromeOptions)
-                  .setFirefoxOptions(firefoxOptions)
-                  .build();
+      .forBrowser(this.browser)
+      .setChromeOptions(chromeOptions)
+      .setFirefoxOptions(firefoxOptions)
+      .build();
 
     // AsyncScript/PageLoad/ImplictWait Timeouts
-    this.wd.manage().timeouts().setScriptTimeout(this.TIMEOUT);
-    this.wd.manage().timeouts().pageLoadTimeout(this.TIMEOUT);
-    this.wd.manage().timeouts().implicitlyWait(this.TIMEOUT);
+    this.wd
+      .manage()
+      .timeouts()
+      .setScriptTimeout(this.TIMEOUT);
+    this.wd
+      .manage()
+      .timeouts()
+      .pageLoadTimeout(this.TIMEOUT);
+    this.wd
+      .manage()
+      .timeouts()
+      .implicitlyWait(this.TIMEOUT);
   }
 
   /*--- ***************** ---*/
@@ -95,7 +109,7 @@ class EasyDriver {
     return this.wd.manage().addCookie({
       name: name,
       value: value,
-      expiry: new Date(Date.now() + (minutes * 60 * 1000))
+      expiry: new Date(Date.now() + minutes * 60 * 1000)
     });
   }
 
@@ -116,8 +130,8 @@ class EasyDriver {
     this.log(`  [-] alertAccept()`);
 
     const self = this;
-    return self.waitForAlertIsPresent().then(function () {
-      return self.switchToAlert().then(function (alert) {
+    return self.waitForAlertIsPresent().then(function() {
+      return self.switchToAlert().then(function(alert) {
         return alert.accept();
       });
     });
@@ -131,8 +145,8 @@ class EasyDriver {
     this.log(`  [-] alertDismiss()`);
 
     const self = this;
-    return self.waitForAlertIsPresent().then(function () {
-      return self.switchToAlert().then(function (alert) {
+    return self.waitForAlertIsPresent().then(function() {
+      return self.switchToAlert().then(function(alert) {
         return alert.dismiss();
       });
     });
@@ -147,8 +161,8 @@ class EasyDriver {
     this.log(`  [-] alertSendKeyss()`);
 
     const self = this;
-    return self.waitForAlertIsPresent().then(function () {
-      return self.switchToAlert().then(function (alert) {
+    return self.waitForAlertIsPresent().then(function() {
+      return self.switchToAlert().then(function(alert) {
         alert.sendKeys(text);
         return alert.accept();
       });
@@ -170,7 +184,7 @@ class EasyDriver {
    */
   blank() {
     this.log(`  [-] blank()`);
-    return this.wd.get('about:blank');
+    return this.wd.get("about:blank");
   }
 
   /**
@@ -215,46 +229,49 @@ class EasyDriver {
       self.log(`      Locating: WebElement`);
       if (isVisible) self.wait(self.until.elementIsVisible(locator));
       defer.fulfill(locator);
-    }
-    else {
+    } else {
       self.log(`      Locating: ${locator}`);
       // Add ':eq()' support to css selector
       const re = /:eq\((\d+)\)/;
       const found = locator.match(re);
 
-      if(!found) {
+      if (!found) {
         const byLocator = self.locateElementBy(locator);
 
         self.wait(self.until.elementsLocated(byLocator));
 
-        self.wd.findElement(byLocator)
-        .then(function (element) {
-          if (isVisible) self.wait(self.until.elementIsVisible(element));
-          defer.fulfill(element);
-        })
-        .catch(function (reason) {
-          defer.reject(reason);
-        });
-      }
-      else {
+        self.wd
+          .findElement(byLocator)
+          .then(function(element) {
+            if (isVisible) self.wait(self.until.elementIsVisible(element));
+            defer.fulfill(element);
+          })
+          .catch(function(reason) {
+            defer.reject(reason);
+          });
+      } else {
         const query = locator.substring(0, found.index);
         const nth = found[1];
 
-        self.findElements(query)
-        .then(function (elements) {
-          self.log(`      Locating: ${query} => ${nth}`);
-          if (nth > elements.length) {
-            defer.reject(new self.error.NoSuchElementError(`Maximum index for ${locator} is ${elements.length}.`));
-          }
-          else {
-            const element = elements[nth];
-            if (isVisible) self.wait(self.until.elementIsVisible(element));
-            defer.fulfill(element);
-          }
-        })
-        .catch(function (reason) {
-          defer.reject(reason);
-        });
+        self
+          .findElements(query)
+          .then(function(elements) {
+            self.log(`      Locating: ${query} => ${nth}`);
+            if (nth > elements.length) {
+              defer.reject(
+                new self.error.NoSuchElementError(
+                  `Maximum index for ${locator} is ${elements.length}.`
+                )
+              );
+            } else {
+              const element = elements[nth];
+              if (isVisible) self.wait(self.until.elementIsVisible(element));
+              defer.fulfill(element);
+            }
+          })
+          .catch(function(reason) {
+            defer.reject(reason);
+          });
       }
     }
 
@@ -339,16 +356,30 @@ class EasyDriver {
   locateElementBy(locator) {
     locator = parseLocator(locator);
 
-    if (locator.type === 'css') { return this.By.css(locator.string); }
-    if (locator.type === 'xpath') { return this.By.xpath(locator.string); }
-    if (locator.type === 'class') { return this.By.className(locator.string); }
-    if (locator.type === 'id') { return this.By.id(locator.string); }
-    if (locator.type === 'name') { return this.By.name(locator.string); }
-    if (locator.type === 'implicit') {
-      if (locator.string.startsWith('//') || locator.string.startsWith('(')) {
+    if (locator.type === "css") {
+      return this.By.css(locator.string);
+    }
+    if (locator.type === "xpath") {
+      return this.By.xpath(locator.string);
+    }
+    if (locator.type === "class") {
+      return this.By.className(locator.string);
+    }
+    if (locator.type === "id") {
+      return this.By.id(locator.string);
+    }
+    if (locator.type === "name") {
+      return this.By.name(locator.string);
+    }
+    if (locator.type === "implicit") {
+      if (locator.string.startsWith("//") || locator.string.startsWith("(")) {
         return this.By.xpath(locator.string);
       }
-      if (locator.string.startsWith('.') || locator.string.startsWith('#') || locator.string.startsWith('[')) {
+      if (
+        locator.string.startsWith(".") ||
+        locator.string.startsWith("#") ||
+        locator.string.startsWith("[")
+      ) {
         return this.By.css(locator.string);
       }
       console.error(`Can not locate an element with '${locator.string}'.`);
@@ -356,7 +387,9 @@ class EasyDriver {
       console.error(`Can not locate an element by type '${locator.type}'.`);
     }
 
-    console.log(`Supported locator types are: css=, xpath=, class=, id=, name=.`);
+    console.log(
+      `Supported locator types are: css=, xpath=, class=, id=, name=.`
+    );
 
     throw new this.error.InvalidSelectorError();
   }
@@ -369,7 +402,7 @@ class EasyDriver {
     if (this.VERBOSE) {
       const defer = this.promise.defer();
       defer.fulfill(msg);
-      defer.promise.then(function (message) {
+      defer.promise.then(function(message) {
         console.log(message);
       });
     }
@@ -381,7 +414,10 @@ class EasyDriver {
    */
   maximizeWindow() {
     this.log(`  [-] maximizeWindow()`);
-    return this.wd.manage().window().maximize();
+    return this.wd
+      .manage()
+      .window()
+      .maximize();
   }
 
   /**
@@ -392,12 +428,22 @@ class EasyDriver {
     this.log(`  [-] maximizeToScreenSize()`);
 
     const self = this;
-    return self.wd.executeScript(`
+    return self.wd
+      .executeScript(
+        `
       return {width: window.screen.width, height: window.screen.height};
-    `).then (function (size) {
-      self.wd.manage().window().setPosition(0, 0);
-      return self.wd.manage().window().setSize(size.width, size.height);
-    });
+    `
+      )
+      .then(function(size) {
+        self.wd
+          .manage()
+          .window()
+          .setPosition(0, 0);
+        return self.wd
+          .manage()
+          .window()
+          .setSize(size.width, size.height);
+      });
   }
 
   /**
@@ -418,11 +464,14 @@ class EasyDriver {
   openWindow(name) {
     this.log(`  [-] openWindow(${name})`);
 
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
       var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
       window.open("about:blank", arguments[0], "width=" + w + ",height=" + h);
-    `, name);
+    `,
+      name
+    );
   }
 
   /**
@@ -458,16 +507,28 @@ class EasyDriver {
             json: Response in JSON
    * @return {WebElementPromise} A WebElement that holds the result of HTTP request
    */
-  request(url, settings = { method: 'GET', headers: null, qs: null, body: null, formData: null, auth: { user: null, pass: null}, encoding: 'utf8', json: true}) {
+  request(
+    url,
+    settings = {
+      method: "GET",
+      headers: null,
+      qs: null,
+      body: null,
+      formData: null,
+      auth: { user: null, pass: null },
+      encoding: "utf8",
+      json: true
+    }
+  ) {
     const self = this;
     const defer = self.promise.defer();
 
-    const encoding = settings.encoding || 'utf8';
+    const encoding = settings.encoding || "utf8";
     const headers = settings.headers || {};
     const options = {
       uri: url,
-      method: settings.method || 'GET',
-      headers: Object.assign({ 'Accept-Language': self.locale }, headers),
+      method: settings.method || "GET",
+      headers: Object.assign({ "Accept-Language": self.locale }, headers),
       strictSSL: false,
       json: settings.json || true
     };
@@ -477,18 +538,19 @@ class EasyDriver {
     if (settings.formData) options.formData = settings.formData;
 
     rp(options)
-      .then(function (body) {
+      .then(function(body) {
         self.open(`data:text/plain;charset=${encoding},${body}`);
       })
-      .catch(function (err) {
+      .catch(function(err) {
         self.open(`data:text/plain;charset=${encoding},${err.error.message}`);
       })
-      .finally(function () {
-        self.findElement('//body/pre')
-          .then(function (element) {
+      .finally(function() {
+        self
+          .findElement("//body/pre")
+          .then(function(element) {
             defer.fulfill(element);
           })
-          .catch(function (reason) {
+          .catch(function(reason) {
             defer.reject(reason);
           });
       });
@@ -504,18 +566,19 @@ class EasyDriver {
   runScript(script, fn) {
     this.log(`  [-] runScript()`);
 
-    this.wd.executeScript(script)
-    .then(function (retval) {
-      // * For a HTML element, the value will resolve to a WebElement
-      // * Null and undefined return values will resolve to null
-      // * Booleans, numbers, and strings will resolve as is
-      // * Functions will resolve to their string representation
-      // * For arrays and objects, each member item will be converted according to the rules above
-      fn(retval);
-    })
-    .catch(function (err) {
-      fn(err);
-    });
+    this.wd
+      .executeScript(script)
+      .then(function(retval) {
+        // * For a HTML element, the value will resolve to a WebElement
+        // * Null and undefined return values will resolve to null
+        // * Booleans, numbers, and strings will resolve as is
+        // * Functions will resolve to their string representation
+        // * For arrays and objects, each member item will be converted according to the rules above
+        fn(retval);
+      })
+      .catch(function(err) {
+        fn(err);
+      });
   }
 
   /**
@@ -525,7 +588,10 @@ class EasyDriver {
    */
   setPageLoadTimeout(ms) {
     this.log(`  [-] setPageLoadTimeout(${ms})`);
-    return this.wd.manage().timeouts().pageLoadTimeout(ms);
+    return this.wd
+      .manage()
+      .timeouts()
+      .pageLoadTimeout(ms);
   }
 
   /**
@@ -535,7 +601,10 @@ class EasyDriver {
    */
   setScriptTimeout(ms) {
     this.log(`  [-] setScriptTimeout(${ms})`);
-    return this.wd.manage().timeouts().setScriptTimeout(ms);
+    return this.wd
+      .manage()
+      .timeouts()
+      .setScriptTimeout(ms);
   }
 
   /**
@@ -545,7 +614,10 @@ class EasyDriver {
   setTimeout(ms) {
     this.log(`  [-] setTimeout(${ms})`);
     this.TIMEOUT = parseInt(ms) || this.TIMEOUT;
-    this.wd.manage().timeouts().implicitlyWait(this.TIMEOUT);
+    this.wd
+      .manage()
+      .timeouts()
+      .implicitlyWait(this.TIMEOUT);
   }
 
   /**
@@ -556,7 +628,10 @@ class EasyDriver {
    */
   setWindowPosition(x, y) {
     this.log(`  [-] setWindowPosition(${x}, ${y})`);
-    return this.wd.manage().window().setPosition(x, y);
+    return this.wd
+      .manage()
+      .window()
+      .setPosition(x, y);
   }
 
   /**
@@ -567,7 +642,10 @@ class EasyDriver {
    */
   setWindowSize(width, height) {
     this.log(`  [-] setWindowSize(${width}, ${height})`);
-    return this.wd.manage().window().setSize(width, height);
+    return this.wd
+      .manage()
+      .window()
+      .setSize(width, height);
   }
 
   /**
@@ -607,7 +685,7 @@ class EasyDriver {
 
     const self = this;
 
-    return self.wd.getAllWindowHandles().then(function (handles) {
+    return self.wd.getAllWindowHandles().then(function(handles) {
       return self.wd.switchTo().window(handles[0]);
     });
   }
@@ -620,7 +698,7 @@ class EasyDriver {
   switchToFrame(locator) {
     this.log(`  [-] switchToFrame()`);
 
-    const element = (isNaN(locator)) ? this.findElement(locator) : locator;
+    const element = isNaN(locator) ? this.findElement(locator) : locator;
     return this.wd.switchTo().frame(element);
   }
 
@@ -633,8 +711,8 @@ class EasyDriver {
 
     const self = this;
 
-    return self.wd.getAllWindowHandles().then(function (handles) {
-      return self.wd.switchTo().window(handles[handles.length-1]);
+    return self.wd.getAllWindowHandles().then(function(handles) {
+      return self.wd.switchTo().window(handles[handles.length - 1]);
     });
   }
 
@@ -655,13 +733,13 @@ class EasyDriver {
   takeScreenshot(filename) {
     this.log(`  [-] takeScreenshot(${filename})`);
 
-    if (!filename.endsWith('.png')) filename += '.png';
+    if (!filename.endsWith(".png")) filename += ".png";
 
     this.sleep(500);
 
-    this.wd.takeScreenshot().then(function (data) {
-      fs.writeFile(filename, data, 'base64', function (err) {
-        if(err) console.error(err);
+    this.wd.takeScreenshot().then(function(data) {
+      fs.writeFile(filename, data, "base64", function(err) {
+        if (err) console.error(err);
       });
     });
   }
@@ -773,10 +851,13 @@ class EasyDriver {
     this.log(`  [-] blur()`);
 
     const element = this.findElement(locator);
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       var element = arguments[0];
       element.blur();
-    `, element);
+    `,
+      element
+    );
   }
 
   /**
@@ -788,14 +869,15 @@ class EasyDriver {
 
     const element = this.findElement(locator);
 
-    element.findElements(this.locateElementBy('css=input[type="checkbox"]'))
-    .then(function (checkboxes) {
-      checkboxes.forEach(function (checkbox) {
-        checkbox.isSelected().then(function (isChecked) {
-          if (!isChecked) checkbox.click();
+    element
+      .findElements(this.locateElementBy('css=input[type="checkbox"]'))
+      .then(function(checkboxes) {
+        checkboxes.forEach(function(checkbox) {
+          checkbox.isSelected().then(function(isChecked) {
+            if (!isChecked) checkbox.click();
+          });
         });
       });
-    });
   }
 
   /**
@@ -825,12 +907,16 @@ class EasyDriver {
    * @param {{x: number, y: number}} [offset={x: 0, y: 0}] An offset within the element
    * @return {Thenable}
    */
-  clickAt(locator, offset = {x: 0, y: 0}) {
+  clickAt(locator, offset = { x: 0, y: 0 }) {
     this.log(`  [-] clickAt()`);
 
     const self = this;
-    return self.findElement(locator, true).then(function (element) {
-      return self.actions().mouseMove(element, offset).click().perform();
+    return self.findElement(locator, true).then(function(element) {
+      return self
+        .actions()
+        .mouseMove(element, offset)
+        .click()
+        .perform();
     });
   }
 
@@ -840,7 +926,7 @@ class EasyDriver {
    * @param {{x: number, y: number}} [offset={x: 0, y: 0}] An offset within the element
    * @return {Thenable}
    */
-  doubleClick(locator, offset = {x: 0, y: 0}) {
+  doubleClick(locator, offset = { x: 0, y: 0 }) {
     this.log(`  [-] doubleClick()`);
     return this.actions()
       .mouseMove(this.findElement(locator, true), offset)
@@ -859,8 +945,14 @@ class EasyDriver {
     this.log(`  [-] dragAndDrop()`);
 
     const from = this.findElement(from_locator, true);
-    const to = (typeof to_locator === 'object' && 'x' in to_locator) ? to_locator : this.findElement(to_locator);
-    return this.actions().mouseMove(from).dragAndDrop(from, to).perform();
+    const to =
+      typeof to_locator === "object" && "x" in to_locator
+        ? to_locator
+        : this.findElement(to_locator);
+    return this.actions()
+      .mouseMove(from)
+      .dragAndDrop(from, to)
+      .perform();
   }
 
   /**
@@ -872,10 +964,13 @@ class EasyDriver {
     this.log(`  [-] focus()`);
 
     const element = this.findElement(locator);
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       var element = arguments[0];
       element.focus();
-    `, element);
+    `,
+      element
+    );
   }
 
   /**
@@ -907,10 +1002,15 @@ class EasyDriver {
     //   });
     // });
 
-    return this.promise.consume(function* () {
-      return yield element.getLocation().then(function (position) {
-        return element.getSize().then(function (size) {
-          return ({x: position.x, y: position.y, width: size.width, height: size.height});
+    return this.promise.consume(function*() {
+      return yield element.getLocation().then(function(position) {
+        return element.getSize().then(function(size) {
+          return {
+            x: position.x,
+            y: position.y,
+            width: size.width,
+            height: size.height
+          };
         });
       });
     });
@@ -947,11 +1047,17 @@ class EasyDriver {
 
     const element = this.findElement(locator, true);
 
-    return this.wd.executeScript(`
+    return this.wd
+      .executeScript(
+        `
       return arguments[0].hasAttribute(arguments[1]);
-    `, element, attributeName).then(function (reseult) {
-      return reseult;
-    });
+    `,
+        element,
+        attributeName
+      )
+      .then(function(reseult) {
+        return reseult;
+      });
   }
 
   /**
@@ -963,9 +1069,12 @@ class EasyDriver {
     this.log(`  [-] hide()`);
 
     const element = this.findElement(locator);
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       arguments[0].style.display = 'none';
-    `, element);
+    `,
+      element
+    );
   }
 
   /**
@@ -977,9 +1086,12 @@ class EasyDriver {
     this.log(`  [-] highlight()`);
 
     const element = this.findElement(locator);
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       arguments[0].style.backgroundColor = '#FFFF33';
-    `, element);
+    `,
+      element
+    );
   }
 
   // TODO: Need to think how to implement isEnabled/isDisplayed/isSelected
@@ -1021,9 +1133,11 @@ class EasyDriver {
    * @param {{x: number, y: number}} [offset={x: 0, y: 0}] An offset within the element.
    * @return {Thenable}
    */
-  mouseMove(locator, offset = {x: 0, y: 0}) {
+  mouseMove(locator, offset = { x: 0, y: 0 }) {
     this.log(`  [-] mouseMove()`);
-    return this.actions().mouseMove(this.findElement(locator, true), offset).perform();
+    return this.actions()
+      .mouseMove(this.findElement(locator, true), offset)
+      .perform();
   }
 
   /**
@@ -1037,9 +1151,13 @@ class EasyDriver {
     this.log(`  [-] move()`);
 
     const from = this.findElement(from_locator, true);
-    const to = (typeof to_locator === 'object' && 'x' in to_locator) ? to_locator : this.findElement(to_locator);
+    const to =
+      typeof to_locator === "object" && "x" in to_locator
+        ? to_locator
+        : this.findElement(to_locator);
 
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       var from = arguments[0];
       var to = arguments[1];
 
@@ -1058,7 +1176,10 @@ class EasyDriver {
     	from.style.left = left + 'px';
     	from.style.top = top + 'px';
 
-    `, from, to);
+    `,
+      from,
+      to
+    );
   }
 
   /**
@@ -1072,13 +1193,17 @@ class EasyDriver {
 
     const element = this.findElement(locator, true);
 
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       var element = arguments[0];
       var attributeName = arguments[1];
       if (element.hasAttribute(attributeName)) {
         element.removeAttribute(attributeName);
       }
-    `, element, attributeName);
+    `,
+      element,
+      attributeName
+    );
   }
 
   /**
@@ -1089,8 +1214,8 @@ class EasyDriver {
   rightClick(locator) {
     this.log(`  [-] rightClick()`);
     return this.actions()
-               .click(this.findElement(locator, true), this.Button.RIGHT)
-               .perform();
+      .click(this.findElement(locator, true), this.Button.RIGHT)
+      .perform();
   }
 
   /**
@@ -1099,12 +1224,12 @@ class EasyDriver {
    * @param {{x: number, y: number}} [offset={x: 0, y: 0}] An offset within the element.
    * @return {Thenable}
    */
-  rightClickAt(locator, offset = {x: 0, y: 0}) {
+  rightClickAt(locator, offset = { x: 0, y: 0 }) {
     this.log(`  [-] rightClickAt()`);
     return this.actions()
-               .mouseMove(this.findElement(locator, true), offset)
-               .click(this.Button.RIGHT)
-               .perform();
+      .mouseMove(this.findElement(locator, true), offset)
+      .click(this.Button.RIGHT)
+      .perform();
   }
 
   /**
@@ -1114,7 +1239,10 @@ class EasyDriver {
    */
   scrollIntoView(locator) {
     this.log(`  [-] scrollIntoView()`);
-    return this.wd.executeScript(`arguments[0].scrollIntoView(true);`, this.findElement(locator));
+    return this.wd.executeScript(
+      `arguments[0].scrollIntoView(true);`,
+      this.findElement(locator)
+    );
   }
 
   /**
@@ -1128,9 +1256,11 @@ class EasyDriver {
 
     const select = this.findElement(select_locator, true);
 
-    return select.findElement(this.locateElementBy(option_locator)).then(function (option) {
-      return option.click();
-    });
+    return select
+      .findElement(this.locateElementBy(option_locator))
+      .then(function(option) {
+        return option.click();
+      });
   }
 
   /**
@@ -1187,13 +1317,18 @@ class EasyDriver {
 
     const element = this.findElement(locator);
 
-    this.wd.executeScript(`
+    this.wd.executeScript(
+      `
       var element = arguments[0];
       var attribute = arguments[1];
       var value = arguments[2];
 
       element.setAttribute(attribute, value);
-    `, element, attribute, value);
+    `,
+      element,
+      attribute,
+      value
+    );
   }
 
   /**
@@ -1205,9 +1340,12 @@ class EasyDriver {
     this.log(`  [-] show()`);
 
     const element = this.findElement(locator);
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       arguments[0].style.display = '';
-    `, element);
+    `,
+      element
+    );
   }
 
   /**
@@ -1231,13 +1369,17 @@ class EasyDriver {
 
     const element = this.findElement(locator, true);
 
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       var element = arguments[0];
       var eventName = arguments[1];
 
       var event = new Event(eventName, {"bubbles": false, "cancelable": false});
       element.dispatchEvent(event);
-    `, element, eventName);
+    `,
+      element,
+      eventName
+    );
   }
 
   /**
@@ -1249,14 +1391,15 @@ class EasyDriver {
 
     const element = this.findElement(locator);
 
-    element.findElements(this.locateElementBy('css=input[type="checkbox"]'))
-    .then(function (checkboxes) {
-      checkboxes.forEach(function (checkbox) {
-        checkbox.isSelected().then(function (isChecked) {
-          if (isChecked) checkbox.click();
+    element
+      .findElements(this.locateElementBy('css=input[type="checkbox"]'))
+      .then(function(checkboxes) {
+        checkboxes.forEach(function(checkbox) {
+          checkbox.isSelected().then(function(isChecked) {
+            if (isChecked) checkbox.click();
+          });
         });
       });
-    });
   }
 
   /**
@@ -1269,9 +1412,13 @@ class EasyDriver {
     this.log(`  [-] visible()`);
 
     const element = this.findElement(locator);
-    return this.wd.executeScript(`
+    return this.wd.executeScript(
+      `
       arguments[0].style.visibility = arguments[1];
-    `, element, isVisible ? 'visible' : 'hidden');
+    `,
+      element,
+      isVisible ? "visible" : "hidden"
+    );
   }
 
   /**
@@ -1311,7 +1458,9 @@ class EasyDriver {
    */
   waitForNotSelected(locator) {
     this.log(`  [-] waitForNotSelected()`);
-    return this.wait(this.until.elementIsNotSelected(this.findElement(locator)));
+    return this.wait(
+      this.until.elementIsNotSelected(this.findElement(locator))
+    );
   }
 
   /**
@@ -1351,7 +1500,7 @@ class EasyDriver {
    */
   waitForSwitchToFrame(locator) {
     this.log(`  [-] waitForSwitchToFrame()`);
-    const frame = (isNaN(locator)) ? this.findElement(locator) : locator;
+    const frame = isNaN(locator) ? this.findElement(locator) : locator;
     return this.wait(this.until.ableToSwitchToFrame(frame));
   }
 
@@ -1363,7 +1512,9 @@ class EasyDriver {
    */
   waitForTextContains(locator, substr) {
     this.log(`  [-] waitForTextContains()`);
-    return this.wait(this.until.elementTextContains(this.findElement(locator), substr));
+    return this.wait(
+      this.until.elementTextContains(this.findElement(locator), substr)
+    );
   }
 
   /**
@@ -1385,7 +1536,9 @@ class EasyDriver {
    */
   waitForTextMatches(locator, regex) {
     this.log(`  [-] waitForTextMatches()`);
-    return this.wait(this.until.elementTextMatches(this.findElement(locator), regex));
+    return this.wait(
+      this.until.elementTextMatches(this.findElement(locator), regex)
+    );
   }
 
   /**
@@ -1428,8 +1581,10 @@ class EasyDriver {
 
     const defer = this.promise.defer();
     defer.fulfill(dirtree);
-    defer.promise.then(function (dirtree) {
-      if (! fs.existsSync(dirtree)){ fs.mkdirsSync(dirtree); }
+    defer.promise.then(function(dirtree) {
+      if (!fs.existsSync(dirtree)) {
+        fs.mkdirsSync(dirtree);
+      }
     });
   }
 
@@ -1456,7 +1611,9 @@ class EasyDriver {
     const to = self.findElement(to_locator, true);
     const cId = getId();
 
-    self.wd.executeScript(`
+    self.wd
+      .executeScript(
+        `
       var element1 = arguments[0];
       var element2 = arguments[1];
 
@@ -1505,10 +1662,13 @@ class EasyDriver {
       ctx.stroke();
 
       return;
-    `, from, to)
-    .then(function () {
-      return self.findElement(`[id="${cId}"]`);
-    });
+    `,
+        from,
+        to
+      )
+      .then(function() {
+        return self.findElement(`[id="${cId}"]`);
+      });
   }
 
   /**
@@ -1517,16 +1677,18 @@ class EasyDriver {
    * @param {string} [color='rgba(255,0,0,0.8)'] Color to fill
    * @return {WebElementPromise}
    */
-  drawColorFill(locator, color = 'rgba(255,0,0,0.8)') {
+  drawColorFill(locator, color = "rgba(255,0,0,0.8)") {
     this.log(`  [-] drawColorFill()`);
 
     const self = this;
     const element = self.findElement(locator, true);
     const id = getId();
 
-    return element.getLocation().then(function (location) {
-      return element.getSize().then(function (size) {
-        return self.wd.executeScript(`
+    return element.getLocation().then(function(location) {
+      return element.getSize().then(function(size) {
+        return self.wd
+          .executeScript(
+            `
           var colorfill = window.document.createElement('div');
           colorfill.id = '${id}';
           colorfill.style.backgroundColor = '${color}';
@@ -1544,10 +1706,11 @@ class EasyDriver {
           window.document.body.appendChild(colorfill);
 
           return;
-        `)
-        .then(function () {
-          return self.findElement(`[id="${id}"]`);
-        });
+        `
+          )
+          .then(function() {
+            return self.findElement(`[id="${id}"]`);
+          });
       });
     });
   }
@@ -1562,11 +1725,13 @@ class EasyDriver {
 
     const self = this;
     const cId = getId();
-    const cancelButton = (isAlert) ? '' : `<button style='width: 70px; box-shadow: 1px 1px 1px #ccc;' onclick='document.getElementById(\\"${cId}\\").remove();'>Cancel</button>`;
+    const cancelButton = isAlert
+      ? ""
+      : `<button style='width: 70px; box-shadow: 1px 1px 1px #ccc;' onclick='document.getElementById(\\"${cId}\\").remove();'>Cancel</button>`;
     const okButton = `<button style='width: 70px; box-shadow: 1px 1px 1px #ccc;' onclick='document.getElementById(\\"${cId}\\").remove();'>OK</button>`;
 
-    return self.waitForAlertIsPresent().then(function () {
-      return self.switchToAlert().then(function (alert) {
+    return self.waitForAlertIsPresent().then(function() {
+      return self.switchToAlert().then(function(alert) {
         return alert.getText().then(function(text) {
           if (dismiss) {
             alert.dismiss();
@@ -1576,7 +1741,9 @@ class EasyDriver {
 
           self.switchToDefaultContent();
 
-          return self.wd.executeScript(`
+          return self.wd
+            .executeScript(
+              `
             var alertBackground = document.createElement('div');
             alertBackground.id = "${cId}";
             alertBackground.style.backgroundColor = 'rgba(0,0,0,0.2)';
@@ -1618,9 +1785,11 @@ class EasyDriver {
             document.body.appendChild(alertBackground);
 
             return;
-          `).then(function () {
-            return self.findElement(`[id="${cId}"]`);
-          });
+          `
+            )
+            .then(function() {
+              return self.findElement(`[id="${cId}"]`);
+            });
         });
       });
     });
@@ -1638,12 +1807,21 @@ class EasyDriver {
             drawSymbol: draw symbol on the flyover.
    * @return {WebElementPromise}
    */
-  drawFlyover(locator, settings = {attribute: 'title', offsetX: 5, offsetY: 15, fromLastPos: false, drawSymbol: false}) {
+  drawFlyover(
+    locator,
+    settings = {
+      attribute: "title",
+      offsetX: 5,
+      offsetY: 15,
+      fromLastPos: false,
+      drawSymbol: false
+    }
+  ) {
     this.log(`  [-] drawFlyover()`);
 
     const self = this;
     const element = self.findElement(locator, true);
-    const attribute = settings.attribute || 'title';
+    const attribute = settings.attribute || "title";
     const offsetX = settings.offsetX || 5;
     const offsetY = settings.offsetY || 15;
     const fromLastPos = settings.fromLastPos || false;
@@ -1653,7 +1831,9 @@ class EasyDriver {
 
     self.waitForVisible(element);
 
-    return self.wd.executeScript(`
+    return self.wd
+      .executeScript(
+        `
       var element = arguments[0];
       var offsetX = arguments[1];
       var offsetY = arguments[2];
@@ -1709,10 +1889,16 @@ class EasyDriver {
       window.easydriverTPLastPos = {x: window.scrollX + lastPos.left, y: window.scrollY + lastPos.bottom};
 
       return;
-    `, element, offsetX, offsetY, fromLastPos, drawSymbol)
-    .then(function () {
-      return self.findElement(`[id="${tpId}"]`);
-    });
+    `,
+        element,
+        offsetX,
+        offsetY,
+        fromLastPos,
+        drawSymbol
+      )
+      .then(function() {
+        return self.findElement(`[id="${tpId}"]`);
+      });
   }
 
   /**
@@ -1721,21 +1907,25 @@ class EasyDriver {
    * @param {{top: number, left: number, bottom: number, right: number}} [padding={top: 0, left: 0, bottom: 0, right: 0}] Remark padding
    * @return {WebElementPromise}
    */
-  drawRedMark(locator, padding = {top: 0, left: 0, bottom: 0, right: 0}) {
+  drawRedMark(locator, padding = { top: 0, left: 0, bottom: 0, right: 0 }) {
     this.log(`  [-] drawRedMark()`);
 
     const self = this;
     const element = self.findElement(locator, true);
     const id = getId();
 
-    return element.getLocation().then(function (location) {
-      return element.getSize().then(function (size) {
-        return self.wd.executeScript(`
+    return element.getLocation().then(function(location) {
+      return element.getSize().then(function(size) {
+        return self.wd
+          .executeScript(
+            `
           var redmark = window.document.createElement('div');
           redmark.id = '${id}';
           redmark.style.border = '3px solid red';
           redmark.style.display = 'block';
-          redmark.style.height = (${size.height} + 8 + ${padding.bottom}) + 'px';
+          redmark.style.height = (${size.height} + 8 + ${
+              padding.bottom
+            }) + 'px';
           redmark.style.left = (${location.x} - 4 - ${padding.left}) + 'px';
           redmark.style.margin = '0px';
           redmark.style.padding = '0px';
@@ -1747,10 +1937,11 @@ class EasyDriver {
           window.document.body.appendChild(redmark);
 
           return;
-        `)
-        .then(function () {
-          return self.findElement(`[id="${id}"]`);
-        });
+        `
+          )
+          .then(function() {
+            return self.findElement(`[id="${id}"]`);
+          });
       });
     });
   }
@@ -1761,18 +1952,21 @@ class EasyDriver {
    * @param {{x: number, y: number}} [offset={x: 5, y: 15}] Menu offset from the element
    * @return {WebElementPromise}
    */
-  drawSelect(locator, offset = {x: 0, y: 0}) {
+  drawSelect(locator, offset = { x: 0, y: 0 }) {
     this.log(`  [-] drawSelect()`);
 
     const self = this;
     const element = self.findElement(locator, true);
     const sId = getId();
 
-    self.getTagName(element).then(function (tagname) {
-      if (tagname !== 'select') console.error('Element is not a select element: ${tagname}.');
+    self.getTagName(element).then(function(tagname) {
+      if (tagname !== "select")
+        console.error("Element is not a select element: ${tagname}.");
     });
 
-    return self.wd.executeScript(`
+    return self.wd
+      .executeScript(
+        `
       var element = arguments[0];
       var offsetX = arguments[1];
       var offsetY = arguments[2];
@@ -1814,10 +2008,14 @@ class EasyDriver {
       dropdown.style.top = (y + offsetY) + "px";
 
       return;
-    `, element, offset.x, offset.y)
-    .then(function () {
-      return self.findElement(`[id="${sId}"]`);
-    });
+    `,
+        element,
+        offset.x,
+        offset.y
+      )
+      .then(function() {
+        return self.findElement(`[id="${sId}"]`);
+      });
   }
 
   /**
@@ -1827,20 +2025,26 @@ class EasyDriver {
    * @param {{color: string, fontSize: number, marginTop: 2, right: number}} [settings={color: '#f00', fontSize: 13, marginTop: 2, right: 20}] Settings
    * @return {WebElementPromise}
    */
-  drawText(locator, text, settings = {color: '#f00', fontSize: 13, marginTop: 2, right: 20}) {
+  drawText(
+    locator,
+    text,
+    settings = { color: "#f00", fontSize: 13, marginTop: 2, right: 20 }
+  ) {
     this.log(`  [-] drawText()`);
 
     const self = this;
     const element = self.findElement(locator, true);
-    const color = settings.color || '#f00';
+    const color = settings.color || "#f00";
     const fontSize = settings.fontSize || 15;
     const marginTop = settings.marginTop || 2;
     const right = settings.right || 20;
     const id = getId();
 
-    return element.getLocation().then(function (location) {
-      return element.getSize().then(function (size) {
-        return self.wd.executeScript(`
+    return element.getLocation().then(function(location) {
+      return element.getSize().then(function(size) {
+        return self.wd
+          .executeScript(
+            `
           var redtext = window.document.createElement('div');
           redtext.id = '${id}';
           redtext.innerText = '${text}';
@@ -1853,16 +2057,19 @@ class EasyDriver {
           redtext.style.padding = '0';
           redtext.style.position = 'absolute';
           redtext.style.right = ${right} + 'px';
-          redtext.style.top = (${location.y} + ${size.height} + ${marginTop}) + 'px';
+          redtext.style.top = (${location.y} + ${
+              size.height
+            } + ${marginTop}) + 'px';
           redtext.style.zIndex = '99999';
 
           window.document.body.appendChild(redtext);
 
           return;
-        `)
-        .then(function () {
-          return self.findElement(`[id="${id}"]`);
-        });
+        `
+          )
+          .then(function() {
+            return self.findElement(`[id="${id}"]`);
+          });
       });
     });
   }
@@ -1873,14 +2080,16 @@ class EasyDriver {
    * @param {{x: number, y: number}} [offset={x: 0, y: 0}] Flyover offset from the element
    * @return {WebElementPromise}
    */
-  drawValidation(locator, offset = {x: 0, y: 0}) {
+  drawValidation(locator, offset = { x: 0, y: 0 }) {
     this.log(`  [-] drawValidation()`);
 
     const self = this;
     const element = self.findElement(locator, true);
     const vId = getId();
 
-    return self.wd.executeScript(`
+    return self.wd
+      .executeScript(
+        `
       var element = arguments[0];
       var offsetX = arguments[1];
       var offsetY = arguments[2];
@@ -1910,10 +2119,14 @@ class EasyDriver {
       );
 
       return;
-    `, element, offset.x, offset.y)
-    .then(function () {
-      return self.findElement(`[id="${vId}"]`);
-    });
+    `,
+        element,
+        offset.x,
+        offset.y
+      )
+      .then(function() {
+        return self.findElement(`[id="${vId}"]`);
+      });
   }
 
   /**
@@ -1928,7 +2141,9 @@ class EasyDriver {
     const element = self.findElement(locator, true);
     const id = getId();
 
-    self.wd.executeScript(`
+    self.wd
+      .executeScript(
+        `
       var element = arguments[0];
       var rect = element.getBoundingClientRect();
 
@@ -1961,10 +2176,12 @@ class EasyDriver {
       ctx.stroke();
 
       return;
-    `, element)
-    .then(function () {
-      return self.findElement(`[id="${id}"]`);
-    });
+    `,
+        element
+      )
+      .then(function() {
+        return self.findElement(`[id="${id}"]`);
+      });
   }
 
   /**
@@ -1975,13 +2192,13 @@ class EasyDriver {
    *
    * References for detecting Retina: http://stackoverflow.com/questions/19689715
    */
-  takeElementShot(locator, filename, offset = {x: 0, y: 0}) {
+  takeElementShot(locator, filename, offset = { x: 0, y: 0 }) {
     this.log(`  [-] takeElementShot()`);
 
     const self = this;
     const element = self.findElement(locator, true);
 
-    if (!filename.endsWith('.png')) filename += '.png';
+    if (!filename.endsWith(".png")) filename += ".png";
 
     const script_firefox = `
       var element = arguments[0];
@@ -2057,18 +2274,28 @@ class EasyDriver {
        callback(canvas.toDataURL());
     `;
 
-    const script = (self.browser === 'firefox') ? script_firefox : script_chrome;
+    const script = self.browser === "firefox" ? script_firefox : script_chrome;
 
-    self.wd.takeScreenshot().then(function (screenData) {
-      self.wd.executeAsyncScript(`
+    self.wd.takeScreenshot().then(function(screenData) {
+      self.wd
+        .executeAsyncScript(
+          `
         ${script}
-      `, element, screenData, offset.x, offset.y)
-      .then(function (elementData) {
-        const base64Data = elementData.replace(/^data:image\/png;base64,/, "");
-        fs.writeFile(filename, base64Data, 'base64', function (err) {
-          if(err) console.error(err);
+      `,
+          element,
+          screenData,
+          offset.x,
+          offset.y
+        )
+        .then(function(elementData) {
+          const base64Data = elementData.replace(
+            /^data:image\/png;base64,/,
+            ""
+          );
+          fs.writeFile(filename, base64Data, "base64", function(err) {
+            if (err) console.error(err);
+          });
         });
-      });
     });
   }
 
@@ -2078,13 +2305,15 @@ class EasyDriver {
    * @param {string} filename File name (.png) of the screenshot
    * @param {{x: number, y: number}} [offset={x: 0, y: 0}] An offset from an element
    */
-  takeScrollShot(locator, filename, offset={x: 0, y: 0}) {
+  takeScrollShot(locator, filename, offset = { x: 0, y: 0 }) {
     this.log(`  [-] takeScrollShot()`);
 
     const self = this;
     const element = self.findElement(locator, true);
 
-    self.wd.executeScript(`
+    self.wd
+      .executeScript(
+        `
       var element = arguments[0];
 
       while ((element.scrollHeight <= element.offsetHeight ) || (parseInt(element.scrollWidth) >= 99000)) {
@@ -2104,10 +2333,14 @@ class EasyDriver {
       element.style.height = element.scrollHeight + "px";
 
       return {mW: old_maxWidth, mH: old_maxHeight, w: old_width, h: old_height};
-    `, element).then(function (scrollData) {
-      self.takeElementShot(element, filename, offset);
+    `,
+        element
+      )
+      .then(function(scrollData) {
+        self.takeElementShot(element, filename, offset);
 
-      self.wd.executeScript(`
+        self.wd.executeScript(
+          `
         var scrollData = arguments[0];
 
         window.easydriverScrollElement.style.maxWidth = scrollData.mW;
@@ -2115,8 +2348,10 @@ class EasyDriver {
 
       	window.easydriverScrollElement.style.height = scrollData.h + "px";
       	window.easydriverScrollElement.style.width = scrollData.w + "px";
-      `, scrollData);
-    });
+      `,
+          scrollData
+        );
+      });
   }
 
   /*--- *************************** ---*/
@@ -2129,41 +2364,39 @@ class EasyDriver {
   // TODO: https://www.npmjs.com/package/html-dnd
   // TODO: https://www.npmjs.com/package/selenium-query
   // TODO: https://github.com/mcherryleigh/webdriver-marker/blob/master/index.js
-
 }
 
 // --- Internal Functions --- //
 
 function getId() {
-  return 'easydriver_' + Math.random().toString(32).slice(2);
+  return (
+    "easydriver_" +
+    Math.random()
+      .toString(32)
+      .slice(2)
+  );
 }
 
-function parseLocator (locator) {
+function parseLocator(locator) {
   const result = locator.match(/^([A-Za-z]+)=.+/);
   if (result) {
     const type = result[1].toLowerCase();
     const actualLocator = locator.substring(type.length + 1);
     return { type: type, string: actualLocator };
   }
-  return { type: 'implicit', string: locator };
+  return { type: "implicit", string: locator };
 }
 
 function regionToLowerCase(locale) {
-  return locale.replace("_","-").replace(
-    /(-[a-zA-Z]{2})$/,
-    function (match) {
-      return match.toLowerCase();
-    }
-  );
+  return locale.replace("_", "-").replace(/(-[a-zA-Z]{2})$/, function(match) {
+    return match.toLowerCase();
+  });
 }
 
 function regionToUpperCase(locale) {
-  return locale.replace("_","-").replace(
-    /(-[a-zA-Z]{2})$/,
-    function (match) {
-      return match.toUpperCase();
-    }
-  );
+  return locale.replace("_", "-").replace(/(-[a-zA-Z]{2})$/, function(match) {
+    return match.toUpperCase();
+  });
 }
 
 module.exports = EasyDriver;
