@@ -19,7 +19,7 @@
   "author": "Aaron Chen <aaron@611b.com>",
   "license": "MIT",
   "dependencies": {
-    "chromedriver": "74.0.0",
+    "chromedriver": "^75.0.0",
     "fs-extra": "8.0.1",
     "geckodriver": "^1.16.2",
     "request": "^2.88.0",
