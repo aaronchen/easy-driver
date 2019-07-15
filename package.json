@@ -19,9 +19,10 @@
   "author": "Aaron Chen <aaron@611b.com>",
   "license": "MIT",
   "dependencies": {
-    "chromedriver": "^75.0.0",
-    "fs-extra": "8.0.1",
+    "chromedriver": "^75.1.0",
+    "fs-extra": "^8.1.0",
     "geckodriver": "^1.16.2",
+    "lodash": ">=4.17.13",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "selenium-webdriver": "3.6.0"
