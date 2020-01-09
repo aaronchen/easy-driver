@@ -43,7 +43,7 @@ jspm_packages
 *.png
 
 # Test Files
-test0*.js
+test[0-9]*.js
 
 # Extensions
 *.crx

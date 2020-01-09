@@ -1160,7 +1160,7 @@ Draw flyover for an element
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | locator | <code>string</code> \| <code>WebElement</code> |  | Element locator |
-| [settings] | <code>Object</code> | <code>{attribute: &#x27;title&#x27;, offsetX: 5, offsetY: 15, fromLastPos: false, drawSymbol: false}</code> | attribute: draw flyover on element's attribute,             offsetX: offset X from the element,             offsetY: offset Y from the element,             fromLastPos: draw from last Flyover position,             drawSymbol: draw symbol on the flyover. |
+| [settings] | <code>Object</code> | <code>{attribute: &#x27;title&#x27;, offsetX: 5, offsetY: 15, bufferHeight: 3, fromLastPos: false, drawSymbol: false}</code> | attribute: draw flyover on element's attribute,             offsetX: offset X from the element,             offsetY: offset Y from the element,             bufferHeight: buffer Height of the element,             fromLastPos: draw from last Flyover position,             drawSymbol: draw symbol on the flyover. |
 
 <a name="EasyDriver+drawRedMark"></a>
 

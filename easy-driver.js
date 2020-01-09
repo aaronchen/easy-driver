@@ -1798,11 +1798,12 @@ class EasyDriver {
   /**
    * Draw flyover for an element
    * @param {(string|WebElement)} locator Element locator
-   * @param {{attribute: string, offsetX: number, offsetY: number, fromLastPos: boolean, drawSymbol: boolean}}
-            [settings={attribute: 'title', offsetX: 5, offsetY: 15, fromLastPos: false, drawSymbol: false}]
+   * @param {{attribute: string, offsetX: number, offsetY: number, bufferHeight: number, fromLastPos: boolean, drawSymbol: boolean}}
+            [settings={attribute: 'title', offsetX: 5, offsetY: 15, bufferHeight: 3, fromLastPos: false, drawSymbol: false}]
             attribute: draw flyover on element's attribute,
             offsetX: offset X from the element,
             offsetY: offset Y from the element,
+            bufferHeight: buffer Height of the element,
             fromLastPos: draw from last Flyover position,
             drawSymbol: draw symbol on the flyover.
    * @return {WebElementPromise}
@@ -1813,6 +1814,7 @@ class EasyDriver {
       attribute: "title",
       offsetX: 5,
       offsetY: 15,
+      bufferHeight: 3,
       fromLastPos: false,
       drawSymbol: false
     }
@@ -1824,6 +1826,7 @@ class EasyDriver {
     const attribute = settings.attribute || "title";
     const offsetX = settings.offsetX || 5;
     const offsetY = settings.offsetY || 15;
+    const bufferHeight = settings.bufferHeight || 3;
     const fromLastPos = settings.fromLastPos || false;
     const drawSymbol = settings.drawSymbol || false;
     const sId = getId();
@@ -1876,13 +1879,13 @@ class EasyDriver {
       tooltip.style.zIndex = '99999';
       tooltip.style.display = 'block';
       tooltip.style.height = '16px';
-      tooltip.style.padding = '2px';
+      tooltip.style.padding = '2px 3px';
       tooltip.style.verticalAlign = 'middle';
       tooltip.style.top = ((fromLastPos) ? window.easydriverTPLastPos.y : (top + offsetY)) + 'px';
       tooltip.style.left = ((fromLastPos) ? window.easydriverTPLastPos.x : (left + offsetX)) + 'px';
       document.body.appendChild(tooltip);
       if (tooltip.scrollHeight > tooltip.offsetHeight) {
-      	tooltip.style.height = (tooltip.scrollHeight + 3) + 'px';
+      	tooltip.style.height = (tooltip.scrollHeight + ${bufferHeight}) + 'px';
       }
 
       var lastPos = tooltip.getBoundingClientRect();
@@ -1923,9 +1926,7 @@ class EasyDriver {
           redmark.id = '${id}';
           redmark.style.border = '3px solid red';
           redmark.style.display = 'block';
-          redmark.style.height = (${size.height} + 8 + ${
-              padding.bottom
-            }) + 'px';
+          redmark.style.height = (${size.height} + 8 + ${padding.bottom}) + 'px';
           redmark.style.left = (${location.x} - 4 - ${padding.left}) + 'px';
           redmark.style.margin = '0px';
           redmark.style.padding = '0px';
@@ -2057,9 +2058,7 @@ class EasyDriver {
           redtext.style.padding = '0';
           redtext.style.position = 'absolute';
           redtext.style.right = ${right} + 'px';
-          redtext.style.top = (${location.y} + ${
-              size.height
-            } + ${marginTop}) + 'px';
+          redtext.style.top = (${location.y} + ${size.height} + ${marginTop}) + 'px';
           redtext.style.zIndex = '99999';
 
           window.document.body.appendChild(redtext);
